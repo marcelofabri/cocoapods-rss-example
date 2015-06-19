@@ -13,45 +13,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="C7T-bq-zs5" customClass="EntryTableViewCell" customModule="CocoaPodsFeed" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="dah-JJ-0n8" customClass="EntryTableViewCell" customModule="CocoaPodsFeed" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C7T-bq-zs5" id="e13-uu-NOC">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dah-JJ-0n8" id="bcG-U0-Kdb">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="AFNetworking" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbu-bC-qAZ">
-                                            <rect key="frame" x="10" y="10" width="547" height="22.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="AFNetworking" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ef0-uM-ca3">
+                                            <rect key="frame" x="8" y="8" width="551" height="25.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="AFNetworking is a cool project." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEo-QL-oos">
-                                            <rect key="frame" x="10" y="39.5" width="547" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="AFNetworking is a cool project." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khJ-jQ-XPi">
+                                            <rect key="frame" x="8" y="41.5" width="551" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="uEo-QL-oos" firstAttribute="top" secondItem="nbu-bC-qAZ" secondAttribute="bottom" constant="7" id="0fw-6m-xa4"/>
-                                        <constraint firstItem="nbu-bC-qAZ" firstAttribute="top" secondItem="e13-uu-NOC" secondAttribute="top" constant="10" id="1qo-Xk-Dae"/>
-                                        <constraint firstItem="uEo-QL-oos" firstAttribute="top" secondItem="nbu-bC-qAZ" secondAttribute="bottom" constant="7" id="Eyq-PZ-SXG"/>
-                                        <constraint firstAttribute="trailing" secondItem="uEo-QL-oos" secondAttribute="trailing" constant="10" id="S6d-go-1yq"/>
-                                        <constraint firstAttribute="bottom" secondItem="uEo-QL-oos" secondAttribute="bottom" constant="10" id="Wl3-Rg-efi"/>
-                                        <constraint firstItem="nbu-bC-qAZ" firstAttribute="leading" secondItem="e13-uu-NOC" secondAttribute="leading" constant="10" id="al2-Eh-JKy"/>
-                                        <constraint firstAttribute="trailing" secondItem="nbu-bC-qAZ" secondAttribute="trailing" constant="10" id="gZB-L3-gxU"/>
-                                        <constraint firstItem="uEo-QL-oos" firstAttribute="leading" secondItem="e13-uu-NOC" secondAttribute="leading" constant="10" id="l89-CY-u0d"/>
-                                        <constraint firstItem="uEo-QL-oos" firstAttribute="leading" secondItem="nbu-bC-qAZ" secondAttribute="leading" id="oce-EN-aFk"/>
+                                        <constraint firstAttribute="bottom" secondItem="khJ-jQ-XPi" secondAttribute="bottom" constant="8" id="GZe-Ex-3Iv"/>
+                                        <constraint firstItem="khJ-jQ-XPi" firstAttribute="top" secondItem="Ef0-uM-ca3" secondAttribute="bottom" constant="7" id="OVb-ow-y9Z"/>
+                                        <constraint firstItem="khJ-jQ-XPi" firstAttribute="leading" secondItem="bcG-U0-Kdb" secondAttribute="leading" constant="8" id="Ror-ie-EmM"/>
+                                        <constraint firstItem="Ef0-uM-ca3" firstAttribute="leading" secondItem="bcG-U0-Kdb" secondAttribute="leading" constant="8" id="aLD-Nh-g0C"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ef0-uM-ca3" secondAttribute="trailing" constant="8" id="ciZ-jg-JBS"/>
+                                        <constraint firstAttribute="trailing" secondItem="khJ-jQ-XPi" secondAttribute="trailing" constant="8" id="fkD-1a-EPS"/>
+                                        <constraint firstItem="Ef0-uM-ca3" firstAttribute="top" secondItem="bcG-U0-Kdb" secondAttribute="top" constant="8" id="htA-ni-r7P"/>
+                                        <constraint firstItem="khJ-jQ-XPi" firstAttribute="top" secondItem="Ef0-uM-ca3" secondAttribute="bottom" constant="8" id="kwJ-JT-44S"/>
+                                        <constraint firstItem="khJ-jQ-XPi" firstAttribute="leading" secondItem="Ef0-uM-ca3" secondAttribute="leading" id="o5R-Gx-81F"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="0fw-6m-xa4"/>
-                                            <exclude reference="oce-EN-aFk"/>
+                                            <exclude reference="OVb-ow-y9Z"/>
+                                            <exclude reference="o5R-Gx-81F"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="contentLabel" destination="uEo-QL-oos" id="d45-aD-Sio"/>
-                                    <outlet property="nameLabel" destination="nbu-bC-qAZ" id="8IO-Va-WNx"/>
+                                    <outlet property="contentLabel" destination="khJ-jQ-XPi" id="sQz-gO-Cq4"/>
+                                    <outlet property="nameLabel" destination="Ef0-uM-ca3" id="vt9-sR-LzW"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
