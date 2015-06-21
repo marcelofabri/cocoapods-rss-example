@@ -13,31 +13,28 @@ class EntryTableViewCell: UITableViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
     
-    func loadEntry(entry: Entry) {
+    func loadEntry(entry: Entry, favorite: Bool = false) {
         nameLabel.text = entry.title
         
-//        contentLabel.text = "dasdas\ndsadsadsadasdas \ndas"
+        let lines = split(entry.contentSnippet) { $0 == "\n" }
+        contentLabel.text = lines.first
         
-        contentLabel.attributedText = entry.attributedContent
+        let font: UIFont
+        var color: UIColor
+        if favorite {
+            font = UIFont.boldSystemFontOfSize(17)
+            color = UIColor.blackColor()
+        } else {
+            font = UIFont.systemFontOfSize(16)
+            color = UIColor.darkGrayColor()
+        }
+        
+        if NSCalendar.currentCalendar().isDateInToday(entry.publishedDate) {
+            color = UIColor.blueColor()
+        }
+        
+        nameLabel.textColor = color
+        contentLabel.textColor = color
+        nameLabel.font = font
     }
-    
-    private func attributedStringFromHTML(htmlString: String) -> NSAttributedString? {
-        let options = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding] as [NSObject: AnyObject]
-        
-        let result = NSAttributedString(data: htmlString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
-            options: options, documentAttributes: nil, error: nil)
-        
-        
-        
-        return result
-    }
-//    
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        contentView.layoutIfNeeded()
-//        nameLabel.preferredMaxLayoutWidth = CGRectGetWidth(nameLabel.frame)
-//        contentLabel.preferredMaxLayoutWidth = CGRectGetWidth(contentLabel.frame)
-//    }
 }

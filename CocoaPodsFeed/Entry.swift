@@ -16,36 +16,13 @@ public struct Entry {
     public let link: NSURL
     public let publishedDate: NSDate
     public let title: String
-    public let attributedContent: NSAttributedString?
 }
 
 extension Entry: Decodable {
-    private static func attributedStringFromHTML(htmlString: String) -> NSAttributedString? {
-        let options = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding] as [NSObject: AnyObject]
-        
-        let paragraph = NSParagraphStyle.defaultParagraphStyle()
-        
-        var result = NSMutableAttributedString(data: htmlString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
-            options: options, documentAttributes: nil, error: nil)
-        
-        let range = NSMakeRange(0, result!.length)
-        result?.addAttribute(NSParagraphStyleAttributeName,
-            value: NSParagraphStyle.defaultParagraphStyle(), range: range)
-        
-        return result
-    }
-    
-    private static func parseAttributedContent(content: String) -> NSAttributedString? {
-        let text = split(content) { $0 == "\n" }
-//        println(text.first!)
-        return attributedStringFromHTML(text.first!)
-    }
-    
     static func create(content: String)(_ contentSnippet: String)(_ link: NSURL)(_ publishedDate: NSDate)(_ title: String) -> Entry {
         
         return Entry(content: content, contentSnippet: contentSnippet, link: link, publishedDate: publishedDate,
-            title: title, attributedContent: parseAttributedContent(contentSnippet))
+            title: title)
     }
     
     public static func decode(j: JSON) -> Decoded<Entry> {

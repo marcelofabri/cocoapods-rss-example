@@ -7,21 +7,18 @@
 //
 
 import UIKit
+import SafariServices
 
 class EntriesTableViewController: UITableViewController {
 
     let entries = EntryRepository.entriesFromJSON()
+    var favorites = Set<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 68
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-//        tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -39,8 +36,7 @@ class EntriesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! EntryTableViewCell
 
         let entry = entries[indexPath.row]
-        cell.loadEntry(entry)
-//        cell.layoutIfNeeded()
+        cell.loadEntry(entry, favorite: favorites.contains(indexPath.row))
         
         return cell
     }
@@ -49,5 +45,44 @@ class EntriesTableViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         UIApplication.sharedApplication().openURL(entries[indexPath.row].link)
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        
+        let title = self.favorites.contains(indexPath.row) ? "Unstar" : "Star"
+        let favoriteAction = UITableViewRowAction(style: .Normal, title: title) { [unowned self] (_, indexPath) in
+            if self.favorites.contains(indexPath.row) {
+                self.favorites.remove(indexPath.row)
+            } else {
+                self.favorites.insert(indexPath.row)
+            }
+            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+        
+        favoriteAction.backgroundColor = UIColor.orangeColor()
+        
+        let safariAction = UITableViewRowAction(style: .Normal, title: "Add to Reading List") { [unowned self] (_, indexPath) in
+            let item = self.entries[indexPath.row]
+            let controller: UIAlertController
+            
+            if let list = SSReadingList.defaultReadingList()
+                where list.addReadingListItemWithURL(item.link, title: item.title, previewText: item.contentSnippet, error: nil) {
+                    controller = UIAlertController(title: "Sucesso!", message: "Item adicionado com sucesso", preferredStyle: .Alert)
+            } else {
+                controller = UIAlertController(title: "Ooops!", message: "Não foi possível adicionar à lista de leitura", preferredStyle: .Alert)
+            }
+            
+            controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(controller, animated: true, completion: nil)
+        }
+        
+        safariAction.backgroundColor = UIColor.purpleColor()
+        
+        return [favoriteAction, safariAction]
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // Intentionally blank. Required to use UITableViewRowActions
     }
 }
