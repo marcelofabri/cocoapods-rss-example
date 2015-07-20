@@ -4,15 +4,14 @@ use_frameworks!
 inhibit_all_warnings!
 
 def add_pods
-	pod 'Argo'
+    pod 'Alamofire'
 end
 
 target 'CocoaPodsFeed' do
-	add_pods
+
 end
 
 target 'CocoaPodsFeedTests' do
-	add_pods
 	pod 'Nimble'
 end
 

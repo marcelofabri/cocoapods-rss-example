@@ -7,8 +7,24 @@
 //
 
 import Foundation
-import Argo
-import Runes
+
+struct JSONParseUtils {
+    static func parseURL(URLString: String?) -> NSURL? {
+        return flatMap(URLString) { NSURL(string: $0) }
+    }
+    
+    static private var rssDateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "EEE, d MMM yyyy HH:mm:ss Z"
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        
+        return formatter
+        }()
+    
+    static func parseDate(dateString: String?) -> NSDate? {
+        return flatMap(dateString) { rssDateFormatter.dateFromString($0) }
+    }
+}
 
 public struct Entry {
     public let content: String
@@ -16,47 +32,18 @@ public struct Entry {
     public let link: NSURL
     public let publishedDate: NSDate
     public let title: String
-}
-
-extension Entry: Decodable {
-    static func create(content: String)(_ contentSnippet: String)(_ link: NSURL)(_ publishedDate: NSDate)(_ title: String) -> Entry {
-        
-        return Entry(content: content, contentSnippet: contentSnippet, link: link, publishedDate: publishedDate,
-            title: title)
-    }
     
-    public static func decode(j: JSON) -> Decoded<Entry> {
-        return Entry.create
-            <^> j <| "content"
-            <*> j <| "contentSnippet"
-            <*> j <| "link"
-            <*> j <| "publishedDate"
-            <*> j <| "title"
-    }
-}
-
-extension NSURL: Decodable {
-    public static func decode(j: JSON) -> Decoded<NSURL> {
-        switch j {
-        case let .String(s): return .fromOptional(NSURL(string: s))
-        default: return .TypeMismatch("\(j) is not a String")
+    public static func decode(j: AnyObject?) -> Entry? {
+        if let json = j as? NSDictionary,
+        content = json["content"] as? String,
+        snippet = json["contentSnippet"] as? String,
+        link = JSONParseUtils.parseURL(json["link"] as? String),
+        publishedDate = JSONParseUtils.parseDate(json["publishedDate"] as? String),
+            title = json["title"] as? String {
+                return Entry(content: content, contentSnippet: snippet, link: link, publishedDate: publishedDate, title: title)
         }
-    }
-}
-
-extension NSDate: Decodable {
-    static private var rssDateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "EEE, d MMM yyyy HH:mm:ss Z"
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         
-        return formatter
-    }()
-    
-    public static func decode(j: JSON) -> Decoded<NSDate> {
-        switch j {
-        case let .String(s): return .fromOptional(rssDateFormatter.dateFromString(s))
-        default: return .TypeMismatch("\(j) is not a String")
-        }
+        return nil
     }
 }
+

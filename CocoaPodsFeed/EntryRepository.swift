@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Argo
 
 public struct EntryRepository {
     public static func entriesFromJSON(path: String = NSBundle.mainBundle().pathForResource("new-pods", ofType: "json")!) -> [Entry] {
@@ -16,7 +15,7 @@ public struct EntryRepository {
             let responseData = dictionary["responseData"] as? NSDictionary,
             let feed = responseData["feed"] as? NSDictionary,
             let json = feed["entries"] as? [NSDictionary] {
-                let entries = json.map { Entry.decode(JSON.parse($0)).value }.filter { $0 != nil }.map { $0!}
+                let entries = json.map { Entry.decode($0) }.filter { $0 != nil }.map { $0! }
                 return entries
         }
         

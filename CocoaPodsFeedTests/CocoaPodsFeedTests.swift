@@ -10,7 +10,6 @@ import UIKit
 import XCTest
 import CocoaPodsFeed
 import Nimble
-import Argo
 
 class CocoaPodsFeedTests: XCTestCase {
     
@@ -37,7 +36,7 @@ class CocoaPodsFeedTests: XCTestCase {
             "categories": []
         ]
         
-        let entry: Entry? = decode(json)
+        let entry: Entry? = Entry.decode(json)
         expect(entry).toNot(beNil())
         
         if let entry = entry {
